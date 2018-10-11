@@ -13,7 +13,8 @@ float angle;
 float r= 255;
 float g= 255;
 float b= 255;
-int col= color(255, 255, 0);
+int col;
+int col2;
 
 void setup() {
   //frameRate(50);
@@ -27,7 +28,7 @@ void setup() {
 }
 
 void draw() {
-  for (int i =0; i<rectangles.length; i++){
+  for (int i =0; i<rectangles.length; i++) {
     rectangles[i]=new Rect (random(-0.1, 0.1), random(30), random(500), random(500));
   } 
   theta += 0.15;
@@ -61,60 +62,99 @@ void draw() {
       scale(.99);
       fill(col);
       spiral(mouseX, mouseY, width*4, 2, random(0, 15));
-      rotate(radians(i*.02));
-      spiral(mouseX, mouseY, width*10, 2, random(0, 20));
     }
     popMatrix();
-  }
-  if (value==3) {
-    frameRate(2);
-    background(255);
-    for (int i =0; i<rectangles.length; i++ ) {
-      rectangles[i].display();   
+    pushMatrix ();
+    translate (width/2, height/2);
+    for (i = 0; i<mouseY; i++) {
+      scale(.99);
+      rotate(radians(i*.02));
+      spiral(mouseX, mouseY, width*10, 2, random(0, 20));
+      fill(col2);
+    }
+    popMatrix();
+    }
+    if (value==3) {
+      frameRate(2);
+      background(255);
+      for (int i =0; i<rectangles.length; i++ ) {
+        rectangles[i].display();
+      }
+    }
+    if (value==4) {
+      rectMode(CENTER);
+      noStroke();
+      background(mouseY/2, 255, 0);
+
+      fill(255-mouseY/2, 255);
+      rect(255, 255, mouseX+1, mouseX+1);
+    }
+    if (value==5) {
+      frameRate(20);
+      background(0);
+      fill(r, g, b);
+      ellipseMode(CORNER);
+      ellipse(x, y, 30, 30);
+
+      x = x + 50;
+      r = r +60;
+
+      if (x>width) {
+        x=0;
+        y=y+50;
+
+        r=0;
+        g = g+50;
+      }
+      if (y>height) {
+        x= 0;
+        y=0;
+        r=0;
+        g=0;
+
+        b=b+50;
+
+        if (b>255) {
+          b=0;
+        }
+      }
     }
   }
-  if (value==4){
-    //frameRate(20);
-    
-    rectMode(CENTER);
-    noStroke();
-    background(mouseY/2,255,255);
-    
-    fill(255-mouseY/2,255);
-    rect(255,255,mouseX+1, mouseX+1);
-  }
-}
 
 
-void keyPressed() {
-  value++;
-  if (value > 3) {
-    value = 1;
+  void keyPressed() {
+    value++;
+    if (value > 5) {
+      value = 1;
+    }
+    if (key=='1') {
+      value = 1;
+      background(0);
+    }
+    if (key=='2') {
+      value=2;
+    }
+    if (key=='3') {
+      value=3;
+    }
+    if (key=='4') {
+      value=4;
+    }
+    if (key=='5') {
+      value=5;
+    }
   }
-  if (key=='1') {
-    value = 1;
-    background(0);
-  }
-  if (key=='2') {
-    value=2;
-  }
-  if (key=='3') {
-    value=3;
-  }
-  if (key=='4'){
-    value=4;
-  }
-}
 
-void mousePressed() {
-  if (value==2) {
-    col = color(random(r), 255, 0);
+  void mousePressed() {
+    if (value==2) {
+      col = color(random(r), 255, 0);
+      col2 = color(255, random(180), random(b));
+    }
   }
-}
 
-void spiral(float aPos, float bPos, float s_width, float s_height, float thic) {
-  fill(col);
-  stroke(col);
-  strokeWeight(thic);
-  line (aPos, bPos, s_width, s_height);
-}
+  void spiral(float aPos, float bPos, float s_width, float s_height, float thic) {
+    fill(col);
+    stroke(col2);
+    strokeWeight(thic);
+    line (aPos, bPos, s_width, s_height);
+  }
