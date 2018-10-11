@@ -73,7 +73,19 @@ void draw() {
       rectangles[i].display();   
     }
   }
+  if (value==4){
+    //frameRate(20);
+    
+    rectMode(CENTER);
+    noStroke();
+    background(mouseY/2,255,255);
+    
+    fill(255-mouseY/2,255);
+    rect(255,255,mouseX+1, mouseX+1);
+  }
 }
+
+
 void keyPressed() {
   value++;
   if (value > 3) {
@@ -89,11 +101,14 @@ void keyPressed() {
   if (key=='3') {
     value=3;
   }
+  if (key=='4'){
+    value=4;
+  }
 }
 
 void mousePressed() {
   if (value==2) {
-    col = color(random(r), g, 0);
+    col = color(random(r), 255, 0);
   }
 }
 
