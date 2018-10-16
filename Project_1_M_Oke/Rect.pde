@@ -1,15 +1,13 @@
 class Rect{
-  float x,y;
-  float speed;
   float rw;
+  float x,y;
   
-  Rect(float x_,float y_, float rw_){
-    x = x_;
-    y = y_;
+  Rect(float rw_){
+
     rw = rw_;
   }
   
-  void display(){
+  void display()  {
     rectMode(CENTER);
     stroke(60,99,360);
     strokeWeight(2);

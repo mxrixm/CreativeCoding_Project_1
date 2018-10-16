@@ -18,7 +18,7 @@ int col;
 int col2;
 
 void setup() {
-  print("Interact using keys 1-3"); //using text for instructions 
+  print("Interact using keys 1-4"); //using text for instructions 
   size(600, 600);
   background(0);
   colorMode(HSB);
@@ -26,8 +26,7 @@ void setup() {
   w_one = new Wave();
   w_two = new Wave();
   w_three = new Wave();
-  rectangles = new Rect[20];
-  
+  rectangles = new Rect[50]; //50 possible rectangle sizes
   col = color(random(r), 255, 360);
     col2= color(random(r), random(g), 360);
 }
@@ -35,7 +34,7 @@ void setup() {
 void draw() {
   
   for (i =0; i<rectangles.length; i++) {
-    rectangles[i]=new Rect (random(-0.1, 0.1), random(30), random(500)); //make a new rectangle 
+    rectangles[i]=new Rect (random(500)); //for third pattern make a new rectangle, each with a random width 
   } 
   theta += 0.15;
   noStroke();
@@ -45,12 +44,12 @@ void draw() {
     colorMode(HSB);
     for (x = 0; x <= width; x +=25) {
       fill(random(r), random(g), 360);
-      y = map(cos(angle), -1, 1, 0, 200); //map the cos of the angle to a value between 0 and 200 pos
+      y = map(cos(angle), -1, 1, 0, 200); //map the cos of the angle to a value between 0 and 200 
       w_one.display(y, x, 40, 40);
       angle += .3;
     }
     for (x = 0; x <= width; x +=20) {   
-      y = map(sin(angle), -1, 1, 0, 200); //map the sin of the angle to a value between 0 and 200 pos
+      y = map(sin(angle), -1, 1, 0, 200); //map the sin of the angle to a value between 0 and 200 
       fill(random(r), random(g), 360);
       w_two.display(x, y, 30, 30); 
       angle += .2;
@@ -92,10 +91,10 @@ void draw() {
     popMatrix();
     pushMatrix ();
     translate (width/2, height/2);
-    for (i = 0; i<mouseY; i++) {
+    for (i = 0; i<height; i++) {
       scale(.99);
       rotate(radians(i*.02));
-      spiral(mouseX, mouseY, width*10, 2, random(0, 20), col2);
+      spiral(600, 300, width*10, 2, random(0, 20), col2);
     }
     popMatrix();
   }
@@ -109,9 +108,11 @@ void draw() {
   }
 
   if (value==4) {
-    stroke(random(r),360,360);
-  strokeWeight(random(1,50));
-  line(width/2,height/2,random(width),random(height));
+    colorMode(HSB);
+    frameRate(4);
+    stroke(random(r),g,b); 
+    strokeWeight(random(10,60));
+    line(width/2,height/2,random(width),random(900)); //draw lines starting at the center of the window at a random x2, y2 position
   }
 }
 
@@ -128,8 +129,8 @@ void keyPressed() {
     value=3;
   }
   if (key=='4') {
-    value=4;
-    background(255);
+    background(0);
+    value=4;   
   }
 }
 

@@ -3,8 +3,8 @@ class Wave {
   float xPos;
   float yPos;
   float angle;
-  int ew;
-  int eh;
+  int ew; //ellipse width
+  int eh; //ellipse height
 
   Wave() {
   }
@@ -14,6 +14,6 @@ class Wave {
     ew = ew_;
     eh= eh_;
 
-    ellipse(xPos, yPos, ew, eh);
+    ellipse(xPos, yPos, ew, eh); 
   }
 }
